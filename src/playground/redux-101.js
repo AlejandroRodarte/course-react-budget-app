@@ -1,5 +1,24 @@
 import { createStore } from 'redux';
 
+// action generator - functions that return action objects
+// try to always default to an empty object
+const incrementCount = ({ incrementBy = 1 } = {}) => ({ 
+    type: 'INCREMENT',
+    incrementBy
+});
+
+const decrementCount = ({ decrementBy = 1 } = {}) => ({ 
+    type: 'DECREMENT',
+    decrementBy
+});
+
+const setCount = ({ count = 0 } = {}) => ({
+    type: 'SET',
+    count
+});
+
+const resetCount = () => ({ type: 'RESET' });
+
 // kick things off: create the store; only called once
 // set default state with initial values
 const store = createStore((state = { count: 0 }, action) => {
@@ -8,19 +27,13 @@ const store = createStore((state = { count: 0 }, action) => {
     switch (action.type) {
 
         case 'INCREMENT':
-
-            const incrementBy = typeof action.incrementBy === 'number' ? action.incrementBy : 1;
-
             return {
-                count: state.count + incrementBy
+                count: state.count + action.incrementBy
             };
 
         case 'DECREMENT':
-
-            const decrementBy = typeof action.decrementBy === 'number' ? action.decrementBy : 1;
-
             return {
-                count: state.count - decrementBy
+                count: state.count - action.decrementBy
             };
         
         case 'SET':
@@ -40,7 +53,6 @@ const store = createStore((state = { count: 0 }, action) => {
 
 });
 
-
 // subscribe to the store
 const unsubscribe = store.subscribe(() => {
     console.log(store.getState());
@@ -49,29 +61,21 @@ const unsubscribe = store.subscribe(() => {
 // unsubscribe();
 
 // dispatching an action
-store.dispatch({
-    type: 'INCREMENT',
+// now using an action generator, passing a payload object
+store.dispatch(incrementCount({
     incrementBy: 5
-});
+}));
 
-store.dispatch({
-    type: 'INCREMENT'
-});
+store.dispatch(incrementCount());
 
-store.dispatch({
-    type: 'RESET'
-});
+store.dispatch(resetCount());
 
-store.dispatch({
-    type: 'DECREMENT'
-});
+store.dispatch(decrementCount());
 
-store.dispatch({
-    type: 'DECREMENT',
+store.dispatch(decrementCount({
     decrementBy: 5
-});
+}));
 
-store.dispatch({
-    type: 'SET',
+store.dispatch(setCount({
     count: 101
-});
+}));
