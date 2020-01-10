@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import { Provider } from 'react-redux';
+
 import AppRouter from './routers/AppRouter';
 
 import configureStore from './store/configure-store';
@@ -33,4 +35,11 @@ store.dispatch(addExpense({
 store.dispatch(setTextFilter('bill'));
 store.dispatch(setTextFilter('water'));
 
-ReactDOM.render(<AppRouter />, document.getElementById('app'));
+// setup redux store on our whole application
+const jsx = (
+    <Provider store={ store }>
+        <AppRouter />
+    </Provider>
+);
+
+ReactDOM.render(jsx, document.getElementById('app'));
