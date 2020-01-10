@@ -3,7 +3,34 @@ import ReactDOM from 'react-dom';
 
 import AppRouter from './routers/AppRouter';
 
+import configureStore from './store/configure-store';
+
+import getVisibleExpenses from './selectors/expenses';
+
+import { addExpense } from './actions/expenses';
+import { setTextFilter } from './actions/filters';
+
 import 'normalize.css/normalize.css'
 import './styles/styles.scss';
+
+const store = configureStore();
+
+store.subscribe(() => {
+    const state = store.getState();
+    console.log(getVisibleExpenses(state.expenses, state.filters));
+});
+
+store.dispatch(addExpense({
+    description: 'Water bill',
+    amount: 100
+}));
+
+store.dispatch(addExpense({
+    description: 'Gas bill',
+    amount: 300
+}));
+
+store.dispatch(setTextFilter('bill'));
+store.dispatch(setTextFilter('water'));
 
 ReactDOM.render(<AppRouter />, document.getElementById('app'));
