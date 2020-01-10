@@ -24,16 +24,17 @@ store.subscribe(() => {
 
 store.dispatch(addExpense({
     description: 'Water bill',
-    amount: 100
+    amount: 100,
+    createdAt: -100
 }));
 
 store.dispatch(addExpense({
     description: 'Gas bill',
-    amount: 300
+    amount: 300,
+    createdAt: 1000
 }));
 
 store.dispatch(setTextFilter('bill'));
-store.dispatch(setTextFilter('water'));
 
 // setup redux store on our whole application
 const jsx = (
