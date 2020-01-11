@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 
 import { Provider } from 'react-redux';
 
+import 'react-dates/initialize';
+
 import AppRouter from './routers/AppRouter';
 
 import configureStore from './store/configure-store';
@@ -14,6 +16,7 @@ import { setTextFilter } from './actions/filters';
 
 import 'normalize.css/normalize.css'
 import './styles/styles.scss';
+import 'react-dates/lib/css/_datepicker.css';
 
 const store = configureStore();
 
