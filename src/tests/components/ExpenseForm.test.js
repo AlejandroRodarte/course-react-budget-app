@@ -159,16 +159,3 @@ test('Should set calendar focus on change', () => {
     expect(wrapper.state('calendarFocused')).toBe(focused);
 
 });
-
-test('Spy mock test', () => {
-
-    // our spy function of onSubmit; used to replace this.props.onSubmit
-    const onSubmitSpy = jest.fn();
-
-    // spy function called with some args
-    onSubmitSpy('Andrew', 'Philadelphia');
-
-    // was spy called with these args? test passes!
-    expect(onSubmitSpy).toHaveBeenCalledWith('Andrew', 'Philadelphia');
-
-});
