@@ -17,6 +17,23 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-firebase.database().ref().set({
-    name: 'Alejandro Rodarte'
+const database = firebase.database();
+
+database.ref().set({
+    name: 'Alejandro Rodarte',
+    age: 24,
+    isSingle: true,
+    location: {
+        city: 'Juarez',
+        country: 'Mexico'
+    }
+});
+
+database.ref('age').set(27);
+
+database.ref('location/city').set('Chihuahua');
+
+database.ref('attributes').set({
+    height: 175,
+        weight: 58
 });
