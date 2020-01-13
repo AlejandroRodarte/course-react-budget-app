@@ -19,21 +19,25 @@ firebase.initializeApp(firebaseConfig);
 
 const database = firebase.database();
 
-database.ref().set({
-    name: 'Alejandro Rodarte',
-    age: 24,
-    isSingle: true,
-    location: {
-        city: 'Juarez',
-        country: 'Mexico'
-    }
-});
+database
+    .ref()
+    .set({
+        name: 'Alejandro Rodarte',
+        age: 24,
+        isSingle: true,
+        location: {
+            city: 'Juarez',
+            country: 'Mexico'
+        }
+    })
+    .then(() => console.log('Data is saved!'))
+    .catch(error => console.log('This failed', error));
 
-database.ref('age').set(27);
-
-database.ref('location/city').set('Chihuahua');
-
-database.ref('attributes').set({
-    height: 175,
+database
+    .ref('attributes')
+    .set({
+        height: 175,
         weight: 58
-});
+    })
+    .then(() => console.log('Attributes are saved!'))
+    .catch(error => console.log('This failed', error));
