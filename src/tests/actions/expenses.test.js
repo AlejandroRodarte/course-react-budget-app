@@ -4,7 +4,7 @@ import thunk from 'redux-thunk';
 
 import database from '../../firebase/firebase';
 
-import { addExpense, startAddExpense, editExpense, removeExpense, setExpenses } from '../../actions/expenses';
+import { addExpense, startAddExpense, editExpense, removeExpense, setExpenses, startSetExpenses } from '../../actions/expenses';
 
 import expenses from '../fixtures/expenses';
 
@@ -149,5 +149,27 @@ test('Should setup set expense action object with data', () => {
         type: 'SET_EXPENSES',
         expenses
     });
+
+});
+
+test('Should fetch the expenses from firebase', (done) => {
+
+    const store = createMockStore({});
+
+    store
+        .dispatch(startSetExpenses())
+        .then(() => {
+
+            const actions = store.getActions();
+
+            expect(actions[0]).toEqual({
+                type: 'SET_EXPENSES',
+                expenses
+            });
+
+            done();
+
+        })
+        .catch(e => console.log(e));
 
 });
