@@ -24,13 +24,27 @@ database
     .set({
         name: 'Alejandro Rodarte',
         age: 24,
-        isSingle: true,
+        stressLevel: 6,
+        job: {
+            title: 'Software Developer',
+            company: 'Google'
+        },
         location: {
             city: 'Juarez',
             country: 'Mexico'
         }
     })
     .then(() => console.log('Data is saved!'))
+    .catch(error => console.log('This failed', error));
+
+database
+    .ref()
+    .update({
+        stressLevel: 9,
+        'job/company': 'Amazon',
+        'location/city': 'Seattle'
+    })
+    .then(() => console.log('Data is updated!'))
     .catch(error => console.log('This failed', error));
 
 database
@@ -53,3 +67,24 @@ database
     .remove()
     .then(() => console.log('Single status deleted!'))
     .catch(error => console.log('This failed', error));
+
+// with update() we can update properties, create new properties and delete properties
+database
+    .ref()
+    .update({
+        name: 'Magdaleno Mendoza',
+        age: 35,
+        job: 'Software developer',
+        isSingle: null
+    })
+    .then(() => console.log('Data was updated!'))
+    .catch(error => console.log('This failed', error));
+
+// database with ref() ONLY updates at the root level
+// how to work with nested updates
+database
+    .ref()
+    .update({
+        job: 'Manager',
+        'location/city': 'Boston'
+    });
