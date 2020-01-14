@@ -54,4 +54,15 @@ const editExpense = ({ id, updates } = {}) => ({
     updates
 });
 
-export { addExpense, startAddExpense, removeExpense, editExpense };
+const setExpenses = expenses => ({
+    type: 'SET_EXPENSES',
+    expenses
+});
+
+export { 
+    addExpense, 
+    startAddExpense, 
+    removeExpense, 
+    editExpense,
+    setExpenses
+};
