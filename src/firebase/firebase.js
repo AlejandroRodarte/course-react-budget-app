@@ -4,14 +4,14 @@ import 'firebase/analytics';
 import 'firebase/database';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDQRsSnPp0jJcQ7YCf_Ahvw1yvnqOlMSPs",
-    authDomain: "react-expensify-app-4f94f.firebaseapp.com",
-    databaseURL: "https://react-expensify-app-4f94f.firebaseio.com",
-    projectId: "react-expensify-app-4f94f",
-    storageBucket: "react-expensify-app-4f94f.appspot.com",
-    messagingSenderId: "49966050630",
-    appId: "1:49966050630:web:5ebe6afc97e32565b68947",
-    measurementId: "G-VYMFPQPZC8"
+    apiKey: process.env.FIREBASE_API_KEY,
+    authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+    databaseURL: process.env.FIREBASE_DATABASE_URL,
+    projectId: process.env.FIREBASE_PROJECT_ID,
+    storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.FIREBASE_APP_ID,
+    measurementId: process.env.FIREBASE_MEASUREMENT_ID
 };
 
 firebase.initializeApp(firebaseConfig);

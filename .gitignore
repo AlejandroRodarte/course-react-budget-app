@@ -35,3 +35,6 @@ packages/react-devtools-inline/dist
 packages/react-devtools-shell/dist
 
 public/dist/
+
+.env.test
+.env.development

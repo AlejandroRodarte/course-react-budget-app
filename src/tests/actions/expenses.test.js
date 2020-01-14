@@ -84,11 +84,12 @@ test('Should add expense to database and store', (done) => {
         .then(snapshot => {
             expect(snapshot.val()).toEqual(expenseData);
             done();
-        });
+        })
+        .catch(e => console.log(e));
 
 });
 
-test('Should add expense with defaults to database and store', () => {
+test('Should add expense with defaults to database and store', (done) => {
 
     const store = createMockStore({});
 
