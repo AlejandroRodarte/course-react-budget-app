@@ -19,32 +19,82 @@ firebase.initializeApp(firebaseConfig);
 
 const database = firebase.database();
 
-const expenses = [
-    {
-        description: 'First expense',
-        note: 'First expense note',
-        amount: 10000,
-        createdAt: -146000000
-    },
-    {
-        description: 'Second expense',
-        note: 'Second expense note',
-        amount: 85600,
-        createdAt: 298000000
-    },
-    {
-        description: 'Third expense',
-        note: 'Third expense note',
-        amount: 900,
-        createdAt: 5390000000
-    }
-];
+// child_removed: subscription that fires when a child gets removed
+// we get back the deleted object
+database
+    .ref('expenses')
+    .on('child_removed', snapshot => console.log(snapshot.key, snapshot.val()));
 
-for (const expense of expenses) {
-    database
-        .ref('expenses')
-        .push(expense);
-}
+// child_changed: triggers when a child inside reference changes
+// we get back the updated object
+database
+    .ref('expenses')
+    .on('child_changed', snapshot => console.log(snapshot.key, snapshot.val()));
+
+database
+    .ref('expenses')
+    .on('child_added', snapshot => console.log(snapshot.key, snapshot.val()));
+
+// database
+//     .ref('expenses')
+//     .push({
+//         description: 'Third expense',
+//         note: 'Third expense note',
+//         amount: 900,
+//         createdAt: 5390000000
+//     });
+
+// const snapshotToExpensesArray = snapshot => {
+
+//     const expenses = [];
+
+//     snapshot.forEach(childSnapshot => {
+//         expenses.push({
+//             id: childSnapshot.key,
+//             ...childSnapshot.val()
+//         });
+//     });
+
+//     console.log(expenses);
+
+// };
+
+// database
+//     .ref('expenses')
+//     .once('value')
+//     .then(snapshotToExpensesArray)
+//     .catch(e => console.log(e));
+
+// database
+//     .ref('expenses')
+//     .on('value', snapshotToExpensesArray);
+
+// const expenses = [
+//     {
+//         description: 'First expense',
+//         note: 'First expense note',
+//         amount: 10000,
+//         createdAt: -146000000
+//     },
+//     {
+//         description: 'Second expense',
+//         note: 'Second expense note',
+//         amount: 85600,
+//         createdAt: 298000000
+//     },
+//     {
+//         description: 'Third expense',
+//         note: 'Third expense note',
+//         amount: 900,
+//         createdAt: 5390000000
+//     }
+// ];
+
+// for (const expense of expenses) {
+//     database
+//         .ref('expenses')
+//         .push(expense);
+// }
 
 // database
 //     .ref('notes/-LyXGH9Mhd_u4iXkUWBE')
