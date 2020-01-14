@@ -30,14 +30,14 @@ const startAddExpense = (expenseData = {}) => {
 
         // save into database
         // when resolved, dispatch addExpense
-        database
-            .ref('expenses')
-            .push(expense)
-            .then(ref => dispatch(addExpense({
-                id: ref.key,
-                ...expense
-            })))
-            .catch(e => console.log(e));
+        return database
+                .ref('expenses')
+                .push(expense)
+                .then(ref => dispatch(addExpense({
+                    id: ref.key,
+                    ...expense
+                })))
+                .catch(e => console.log(e));
 
     };
 
