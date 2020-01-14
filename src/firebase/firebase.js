@@ -41,3 +41,15 @@ database
     })
     .then(() => console.log('Attributes are saved!'))
     .catch(error => console.log('This failed', error));
+
+database
+    .ref('isSingle')
+    .set(null)
+    .then(() => console.log('Single status deleted!'))
+    .catch(error => console.log('This failed', error));
+
+database
+    .ref('isSingle')
+    .remove()
+    .then(() => console.log('Single status deleted!'))
+    .catch(error => console.log('This failed', error));
