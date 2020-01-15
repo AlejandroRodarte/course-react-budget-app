@@ -4,7 +4,15 @@ import thunk from 'redux-thunk';
 
 import database from '../../firebase/firebase';
 
-import { addExpense, startAddExpense, editExpense, removeExpense, setExpenses, startSetExpenses } from '../../actions/expenses';
+import { 
+    addExpense, 
+    startAddExpense, 
+    editExpense, 
+    removeExpense, 
+    startRemoveExpense,
+    setExpenses, 
+    startSetExpenses 
+} from '../../actions/expenses';
 
 import expenses from '../fixtures/expenses';
 
@@ -169,6 +177,36 @@ test('Should fetch the expenses from firebase', (done) => {
 
             done();
 
+        })
+        .catch(e => console.log(e));
+
+});
+
+test('Should remove expense from firebase', (done) => {
+
+    const store = createMockStore({ expenses });
+
+    const id = expenses[0].id;
+
+    store
+        .dispatch(startRemoveExpense(id))
+        .then(() => {
+
+            const actions = store.getActions();
+
+            expect(actions[0]).toEqual({
+                type: 'REMOVE_EXPENSE',
+                id
+            });
+
+            return database
+                    .ref(`expenses/${id}`)
+                    .once('value');
+
+        })
+        .then(snapshot => {
+            expect(snapshot.val()).toBeNull();
+            done();
         })
         .catch(e => console.log(e));
 
