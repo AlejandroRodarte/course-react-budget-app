@@ -12,7 +12,9 @@ const startAddExpense = (expenseData = {}) => {
     // this is the function that is returned
     // it is called internally by redux with the dispatch to dispatch an action
     // this allows us to run async code so we can dispatch when all our processed end
-    return dispatch => {
+    return (dispatch, getState) => {
+
+        const uid = getState().auth.uid;
 
         const {
             description = '', 
@@ -31,7 +33,7 @@ const startAddExpense = (expenseData = {}) => {
         // save into database
         // when resolved, dispatch addExpense
         return database
-                .ref('expenses')
+                .ref(`users/${uid}/expenses`)
                 .push(expense)
                 .then(ref => dispatch(addExpense({
                     id: ref.key,
@@ -50,10 +52,12 @@ const removeExpense = ({ id } = {}) => ({
 
 const startRemoveExpense = id => {
 
-    return dispatch => {
+    return (dispatch, getState) => {
+
+        const uid = getState().auth.uid;
 
         return database
-                .ref(`expenses/${id}`)
+                .ref(`users/${uid}/expenses/${id}`)
                 .remove()
                 .then(() => dispatch(removeExpense({ id })))
                 .catch(e => console.log(e));
@@ -70,10 +74,12 @@ const editExpense = ({ id, updates } = {}) => ({
 
 const startEditExpense = ({ id, updates } = {}) => {
 
-    return dispatch => {
+    return (dispatch, getState) => {
+
+        const uid = getState().auth.uid;
 
         return database
-                .ref(`expenses/${id}`)
+                .ref(`users/${uid}/expenses/${id}`)
                 .update(updates)
                 .then(() => dispatch(editExpense({ id, updates })))
                 .catch(e => console.log(e));
@@ -89,13 +95,14 @@ const setExpenses = expenses => ({
 
 const startSetExpenses = () => {
 
-    return dispatch => {
+    return (dispatch, getState) => {
+
+        const uid = getState().auth.uid;
 
         return database
-                .ref('expenses')
+                .ref(`users/${uid}/expenses`)
                 .once('value')
                 .then(snapshot => {
-
 
                     const expenses = [];
 
