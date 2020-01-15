@@ -7,7 +7,8 @@ import database from '../../firebase/firebase';
 import { 
     addExpense, 
     startAddExpense, 
-    editExpense, 
+    editExpense,
+    startEditExpense, 
     removeExpense, 
     startRemoveExpense,
     setExpenses, 
@@ -184,7 +185,7 @@ test('Should fetch the expenses from firebase', (done) => {
 
 test('Should remove expense from firebase', (done) => {
 
-    const store = createMockStore({ expenses });
+    const store = createMockStore({});
 
     const id = expenses[0].id;
 
@@ -206,6 +207,44 @@ test('Should remove expense from firebase', (done) => {
         })
         .then(snapshot => {
             expect(snapshot.val()).toBeNull();
+            done();
+        })
+        .catch(e => console.log(e));
+
+});
+
+test('Should edit an expense on the database', (done) => {
+
+    const store = createMockStore({});
+
+    const id = expenses[1].id;
+    
+    const updates = {
+        description: expenses[1].description,
+        note: 'New note',
+        amount: 25000,
+        createdAt: expenses[1].createdAt
+    };
+
+    store
+        .dispatch(startEditExpense({ id, updates }))
+        .then(() => {
+
+            const actions = store.getActions();
+
+            expect(actions[0]).toEqual({
+                type: 'EDIT_EXPENSE',
+                id,
+                updates
+            });
+
+            return database
+                    .ref(`expenses/${id}`)
+                    .once('value');
+
+        })
+        .then(snapshot => {
+            expect(snapshot.val()).toEqual(updates);
             done();
         })
         .catch(e => console.log(e));
