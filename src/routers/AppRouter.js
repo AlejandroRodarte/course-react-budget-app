@@ -4,13 +4,14 @@ import { Router, Route, Switch } from 'react-router-dom';
 
 import { createBrowserHistory } from 'history';
 
-import Header from '../components/Header';
 import LoginPage from '../components/LoginPage';
 import ExpenseDashboardPage from '../components/ExpenseDashboardPage';
 import AddExpensePage from '../components/AddExpensePage';
 import EditExpensePage from '../components/EditExpensePage';
 import HelpPage from '../components/HelpPage';
 import NotFoundPage from '../components/NotFoundPage';
+
+import PrivateRoute from './PrivateRoute';
 
 const history = createBrowserHistory();
 
@@ -20,8 +21,6 @@ const AppRouter = () => (
     >
 
         <div>
-        
-            <Header />
 
             <Switch>
 
@@ -31,17 +30,17 @@ const AppRouter = () => (
                     exact={ true }
                 />
 
-                <Route
+                <PrivateRoute
                     path="/dashboard"
                     component={ ExpenseDashboardPage }
                 />
     
-                <Route
+                <PrivateRoute
                     path="/create"
                     component={ AddExpensePage }
                 />
     
-                <Route
+                <PrivateRoute
                     path="/edit/:id"
                     component={ EditExpensePage }
                 />
