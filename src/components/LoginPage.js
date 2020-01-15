@@ -25,9 +25,10 @@ export const LoginPage = ({ startLogin }) => (
             </p>
 
             <button
+                className="button"
                 onClick={ startLogin }
             >
-                Login
+                Login with Google
             </button>
 
         </div>
