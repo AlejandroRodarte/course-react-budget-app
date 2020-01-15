@@ -11,6 +11,8 @@ import configureStore from './store/configure-store';
 
 import { startSetExpenses } from './actions/expenses';
 
+import { login, logout } from './actions/auth';
+
 import { firebase } from './firebase/firebase';
 
 import 'normalize.css/normalize.css'
@@ -40,6 +42,8 @@ firebase.auth().onAuthStateChanged(user => {
 
     if (user) {
 
+        store.dispatch(login(user.uid));
+
         store.dispatch(startSetExpenses()).then(() => {
 
             renderApp();
@@ -51,7 +55,11 @@ firebase.auth().onAuthStateChanged(user => {
         });
 
     } else {
+
+        store.dispatch(logout());
         renderApp();
+
         history.push('/');
+
     }
 });
