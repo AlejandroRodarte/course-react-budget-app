@@ -14,7 +14,7 @@ export const Header = ({ startLogout }) => (
         </h1>
 
         <NavLink 
-            to="/"
+            to="/dashboard"
             activeClassName="is-active"
             exact={ true }
         >

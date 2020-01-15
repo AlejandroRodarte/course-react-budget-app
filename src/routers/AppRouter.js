@@ -12,6 +12,7 @@ import HelpPage from '../components/HelpPage';
 import NotFoundPage from '../components/NotFoundPage';
 
 import PrivateRoute from './PrivateRoute';
+import PublicRoute from './PublicRoute';
 
 const history = createBrowserHistory();
 
@@ -24,7 +25,7 @@ const AppRouter = () => (
 
             <Switch>
 
-                <Route
+                <PublicRoute
                     path="/"
                     component={ LoginPage }
                     exact={ true }
@@ -44,12 +45,7 @@ const AppRouter = () => (
                     path="/edit/:id"
                     component={ EditExpensePage }
                 />
-    
-                <Route
-                    path="/help"
-                    component={ HelpPage }
-                />
-    
+
                 <Route
                     component={ NotFoundPage }
                 />
