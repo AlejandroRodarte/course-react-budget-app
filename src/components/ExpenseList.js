@@ -44,7 +44,7 @@ export const ExpenseList = props => (
                 props.expenses.length === 0 ? (
 
                     <div
-                        class="list-item list-item--message"
+                        className="list-item list-item--message"
                     >
                         <span>
                             No expenses
