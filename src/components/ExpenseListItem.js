@@ -8,23 +8,28 @@ import { Link } from 'react-router-dom';
 
 const ExpenseListItem = ({ id, description, amount, createdAt }) => (
 
-    <div>
-    
-        <Link
-            to={ `/edit/${id}` }
-        >
+    <Link
+        class="list-item"
+        to={ `/edit/${id}` }
+    >
+
+        <div>
+        
             <h3>
                 { description }
             </h3>
-        </Link>
+        
+            <span>
+                { moment(createdAt).format('MMMM Do, YYYY') }
+            </span>
 
-        <p>
+        </div>
+
+        <h3>
             { numeral(amount / 100).format('$0,0.00') }
-            -
-            { moment(createdAt).format('MMMM Do, YYYY') }
-        </p>
+        </h3>
 
-    </div>
+    </Link>
 
 );
 

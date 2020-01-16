@@ -8,11 +8,33 @@ import getVisibleExpenses from '../selectors/expenses';
 
 export const ExpenseList = props => (
 
-    <div>
+    <div
+        className="content-container"
+    >
 
-        <h1>
-            Expense List
-        </h1>
+        <div
+            className="list-header"
+        >
+
+            <div
+                class="show-for-mobile"
+            >
+                Expenses
+            </div>
+        
+            <div
+                class="show-for-desktop"
+            >
+                Expense
+            </div>
+        
+            <div
+                class="show-for-desktop"
+            >
+                Amount
+            </div>
+
+        </div>
 
         {
             props.expenses.length === 0 ? (
