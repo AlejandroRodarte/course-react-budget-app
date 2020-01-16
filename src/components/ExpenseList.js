@@ -17,34 +17,48 @@ export const ExpenseList = props => (
         >
 
             <div
-                class="show-for-mobile"
+                className="show-for-mobile"
             >
                 Expenses
             </div>
         
             <div
-                class="show-for-desktop"
+                className="show-for-desktop"
             >
                 Expense
             </div>
         
             <div
-                class="show-for-desktop"
+                className="show-for-desktop"
             >
                 Amount
             </div>
 
         </div>
 
-        {
-            props.expenses.length === 0 ? (
-                <p>No expenses</p>
-            ): (
-                props.expenses.map(expense => (
-                    <ExpenseListItem key={ expense.id } { ...expense } />
-                ))
-            )
-        }
+        <div
+            className="list-body"
+        >
+        
+            {
+                props.expenses.length === 0 ? (
+
+                    <div
+                        class="list-item list-item--message"
+                    >
+                        <span>
+                            No expenses
+                        </span>
+                    </div>
+
+                ): (
+                    props.expenses.map(expense => (
+                        <ExpenseListItem key={ expense.id } { ...expense } />
+                    ))
+                )
+            }
+
+        </div>
 
     </div>
 
